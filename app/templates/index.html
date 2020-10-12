@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GoodPlace</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+<body>
+    <h1>GoodPlace</h1>
+
+    {% if user %}
+    <p>Bem vindo ao GoodPlace, {{ user }}!</p>
+    {% else %}
+    <p>Bem vindo ao GoodPlace!</p>
+    {% endif %}
+
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</body>
+</html>

@@ -4,7 +4,8 @@ from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 
 goodplace = Flask(__name__)
-goodplace.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///storage.db'
+goodplace.config.from_object('config')
+
 db = SQLAlchemy(goodplace)
 migrate = Migrate(goodplace, db)
 

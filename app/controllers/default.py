@@ -1,7 +1,8 @@
+from flask import render_template
 from app import goodplace
 
 
-@goodplace.route("/")
-@goodplace.route("/index")
-def index():
-    return "BEM VINDO AO GOODPLACE, ESTAMOS EM MANUNTENÇÃO NO MOMENTO"
+@goodplace.route('/', defaults={'user': None})
+@goodplace.route('/index/<user>')
+def index(user):
+    return render_template('index.html', user=user)
