@@ -5,100 +5,8 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>GoodPlace - HOME</title>
-<style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-}
-
-body {
-  font-family: sans-serif;
-  background: #282B31;
-}
-
-/* Navigation */
-
-.nav-container {
-  background: #464D59;
-  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
-  height: 80px;
-}
-
-.wrapper {
-  max-width: 1280px;
-}
-
-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 80px;
-}
-
-nav ul {
-  display: flex;
-}
-
-nav .logo {
-  font-family: sans-serif;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 40px;
-  color: #FFFFFF;
-  margin-left: 60px;
-}
-
-.nav-items li {
-  font-family: sans-serif;
-  font-style: normal;
-  font-weight: bold;
-  list-style: none;
-  margin-right: 100px;
-  margin-top: 25px;
-}
-
-
-.frase {
-    margin-right: 100px;
-    font-family: sans-serif;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 20px;
-    color: #FFFFFF;
-}
-
-.nav-itemstwo li {
-  list-style: none;
-  margin-right: 100px;
-}
-
-/* Header */
-
-.header-container {
-  background-position: left;
-  background-size: contain;
-  height: calc(100vh - 72px);
-  display: flex;
-  align-items: center;
-}
-
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-left: 60px;
-}
-
-header p {
-  font-family: sans-serif;
-  font-size: 24px;
-  line-height: 42px;
-  color: #FFFFFF;
-  text-align: center;
-  margin-left: 30px;
-}
-</style>
+    <title>GoodPlace - INDEX</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css')}}">
 </head>
 <body>
 
@@ -119,7 +27,7 @@ header p {
 
             <ul class="nav-itemstwo">
                 <li>
-                    <a href="#" style="color: #FFFFFF; text-decoration: none;">CRIAR CONTA</a>
+                    <a href="cadastrar" style="color: #FFFFFF; text-decoration: none;">CRIAR CONTA</a>
                 </li>
     
                 <li>
