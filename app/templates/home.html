@@ -3,9 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Good Place - HOME</title>
+
+<style>
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  font-family: sans-serif;
+  background: #282B31;
+}
+
+/* Navigation */
+
+.nav-container {
+  background: #464D59;
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
+  height: 80px;
+}
+
+.wrapper {
+  max-width: 1280px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+}
+
+nav ul {
+  display: flex;
+}
+
+nav .logo {
+  font-family: sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 40px;
+  color: #FFFFFF;
+  margin-left: 60px;
+}
+
+.nav-items li {
+  font-family: sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  list-style: none;
+  margin-right: 100px;
+  margin-top: 25px;
+}
+
+
+.frase {
+  margin-right: 100px;
+  font-family: sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  color: #FFFFFF;
+}
+
+.nav-itemstwo li {
+  list-style: none;
+  margin-right: 100px;
+}
+
+/* Header */
+
+.header-container {
+  background-position: left;
+  background-size: contain;
+  height: calc(100vh - 72px);
+  display: flex;
+  align-items: center;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 60px;
+}
+
+header p {
+  font-family: sans-serif;
+  font-size: 24px;
+  line-height: 42px;
+  color: #FFFFFF;
+  text-align: center;
+  margin-left: 30px;
+}
+
+</style>
+
 </head>
 <body>
+   
+    <div class="nav-container">
+   
+        <div class="wrapper">
+
+          <nav>
+            <div class="logo">
+                Good Place
+            </div>
+            
+            <div class="after-logo">
+                <img src="static/images/finin.png">
+            </div>
+
+            <div class="frase">
+                Um lugar para se fazer o bem
+            </div>
+
+            <ul class="nav-itemstwo">
+                <li>
+                    <a href="cadastrar" style="color: #FFFFFF; text-decoration: none;">CRIAR CONTA</a>
+                </li>
     
+                <li>
+                    <a href="login" style="color: #FFFFFF; text-decoration: none;">INICIAR SESSÃO</a>
+                </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+  
+      <div class="header-container">
+        <div class="wrapper">
+          <header>
+  
+            <div class="hero-image">
+              <img src="static/images/pessoas.png" alt="" />
+              <div class="photo-bg"></div>
+            </div>
+
+            <div class="hero-content">
+                <p>
+                  O lugar certo para se fazer o certo! A GoodPlace é <br>uma comunidade onde os membros se ajudam a troco <br>de nada de forma totalmente gratuita. Venha fazer <br>parte!
+                </p>
+              </div>
+
+          </header>
 </body>
 </html>

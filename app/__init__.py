@@ -6,7 +6,7 @@ from flask_migrate import Migrate, MigrateCommand
 goodplace = Flask(__name__)
 goodplace.config.from_object('config')
 
-db = SQLAlchemy(goodplace)
+db = SQLAlchemy(goodplace)  
 migrate = Migrate(goodplace, db)
 
 manager = Manager(goodplace)
