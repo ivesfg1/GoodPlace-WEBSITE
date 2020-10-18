@@ -64,6 +64,13 @@ body {
  
       <div class="col-md-4 offset-md-4">
 
+        {% for message in get_flashed_messages() %}
+          <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+          </div>
+        {% endfor %}
+
         <form action="" method="POST">
     
           {{ form.csrf_token }}
@@ -71,21 +78,51 @@ body {
           <div class="form">
             <label>NOME DE USUÁRIO</label><br><br><br>
             {{ form.username(class="form-control", size=47) }}
+            
+            {% if form.errors.username %}
+              <ul class="list-group">
+                {% for error in form.errors.username %}
+                  <li class="list-group-item list-group-item-danger">{{ error }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+
           </div><br><br><br>
 
           <div class="form">
             <label>SEU NOME</label><br><br><br>
             {{ form.name(class="form-control", size=47) }}
+            {% if form.errors.name %}
+              <ul class="list-group">
+                {% for error in form.errors.name %}
+                  <li class="list-group-item list-group-item-danger">{{ error }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
           </div><br><br><br>
 
           <div class="form">
             <label>EMAIL</label><br><br><br>
             {{ form.email(class="form-control", size=47) }}
+            {% if form.errors.email %}
+              <ul class="list-group">
+                {% for error in form.errors.email %}
+                  <li class="list-group-item list-group-item-danger">{{ error }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
           </div><br><br><br>
 
           <div class="form">
             <label>SENHA</label><br><br><br>
             {{ form.password(class="form-control", size=47) }}
+            {% if form.errors.password %}
+              <ul class="list-group">
+                {% for error in form.errors.password %}
+                  <li class="list-group-item list-group-item-danger">{{ error }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
           </div><br><br><br>
           
           <button type="submit" style='width: 200px; height: 60px; left: 540px; top: 500px; font-family: Red Hat Text; font-size: 18px; color: #ffffff; background-color: #0064AD;'>ENTRAR</button>
