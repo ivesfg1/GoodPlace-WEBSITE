@@ -6,7 +6,54 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>GoodPlace - LOGIN</title>
-    <link href="{{ url_for('static', filename='css/login.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+  
+body {
+  font-family: sans-serif;
+  background: #282B31;
+  width: 1280px;
+  height: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container {
+  font-family: sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 32px;
+  display: flex;
+  text-align: center;
+  color: #ffffff;
+  margin-left: auto;
+  margin-right: 500px;
+  margin-top: 30px;
+}
+
+.campos label {
+  font-family: Red Hat Text;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 32px;
+  color: #FFFFFF;
+}
+
+.campos form {
+  text-align: center;
+  margin-top: 80px;
+  margin-right: 30px;
+}
+
+</style>
 
 </head>
 <body>
@@ -14,17 +61,29 @@
     <div class="container"><a href="index" style="color: #FFFFFF; text-decoration: none;">← VOLTAR</a></div>
 
     <div class="campos">
-        
-        <form action="#">
-    
-          <label style='width: 400px; height: 60px; left: 440px; top: 200px;' for="email">EMAIL</label><br><br><br>
-          <input style='width: 400px; height: 60px; left: 440px; top: 200px;' type="text" id="email" name="email"><br><br><br>
-          <label style='width: 400px; height: 60px; left: 440px; top: 200px;' for="lname">SENHA</label><br><br><br>
-          <input style='width: 400px; height: 60px; left: 440px; top: 200px;' type="text" id="password" name="password"><br><br><br><br><br>
-          <input style='width: 200px; height: 60px; left: 540px; top: 500px; font-family: Red Hat Text; font-size: 18px; color: #ffffff; background-color: #0064AD;' type="submit" value="ENTRAR">
+      
+      <div class="col-md-4 offset-md-4">
 
-        </form>
+        <form action="" method="POST">
+    
+          {{ form.csrf_token }}
+    
+          <div class="form">
+            <label>EMAIL</label><br><br><br>
+            {{ form.email(class="form-control", size=47) }}
+          </div><br><br><br>
+
+          <div class="form">
+            <label>SENHA</label><br><br><br>
+            {{ form.password(class="form-control", size=47) }}
+          </div><br><br><br>
           
+          <button type="submit" style='width: 200px; height: 60px; left: 540px; top: 500px; font-family: Red Hat Text; font-size: 18px; color: #ffffff; background-color: #0064AD;'>ENTRAR</button>
+          
+        </form>
+
+      </div>
+
     </div>
     
 </body>

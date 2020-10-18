@@ -1,5 +1,14 @@
-from flask import render_template
-from app import goodplace
+from flask import render_template, flash, redirect, url_for
+from flask_login import login_user, logout_user
+from app import goodplace, db, lm
+
+from app.models.forms import LoginForm, CadastroForm
+from app.models.tables import User, Request
+
+
+@lm.user_loader
+def load_user(id):
+    return User.query.filter_by(id=id).first()
 
 
 @goodplace.route('/')
@@ -7,13 +16,37 @@ from app import goodplace
 def index():
     return render_template('index.html')
 
-@goodplace.route('/login')
-def login():
-    return render_template('login.html')
 
-@goodplace.route('/cadastrar')
+@goodplace.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user and user.password == form.password.data:
+            login_user(user)
+            return redirect(url_for("home"))
+    else:
+        print(form.errors)
+    return render_template('login.html', form=form)
+
+
+@goodplace.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for("index"))
+
+
+@goodplace.route('/cadastrar', methods=['GET', 'POST'])
 def cadastrar():
-    return render_template('cadastrar.html')
+    form = CadastroForm()
+    if form.validate_on_submit():
+        print(form.username.data)
+        print(form.email.data)
+        print(form.password.data)
+    else:
+        print(form.errors)
+    return render_template('cadastrar.html', form=form)
+
 
 @goodplace.route('/home')
 def home():
