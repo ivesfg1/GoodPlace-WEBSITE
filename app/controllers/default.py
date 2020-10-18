@@ -60,19 +60,20 @@ def cadastrar():
     if form.validate_on_submit():
         
         existing_email = User.query.filter_by(email=form.email.data).first()
-        existing_username = User.query.filter_by(email=form.email.data).first()
+        existing_name = User.query.filter_by(username=form.username.data).first()
 
-        if existing_email and existing_username is None:
-            user = User(username=form.username.data, name=form.name.data, email=form.email.data, 
-            password=form.password.data, about='Olá! Estou cadastrado no GoodPlace!')
-            db.session.add(user)
-            db.session.commit()
-            return redirect(url_for("login"))
+        if existing_name is None:
+            if existing_email is None:
+                user = User(username=form.username.data, name=form.name.data, email=form.email.data, 
+                password=form.password.data, about='Olá! Estou cadastrado no GoodPlace!')
+                db.session.add(user)
+                db.session.commit()
+                return redirect(url_for("login"))
+            else:
+                flash("Já existe um usuário cadastrado com este email!")
         else:
-            flash("Já existe um usuário cadastrado com este email ou nome de usuário!")
+            flash("Já existe um usuário cadastrado com este nome de usuário!")
 
-    else:
-        print(form.errors)
     return render_template('cadastrar.html', form=form)
 
 
