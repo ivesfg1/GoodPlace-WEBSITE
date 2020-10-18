@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Good Place - HOME</title>
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
 
 <style>
 
@@ -71,30 +72,37 @@ nav .logo {
   margin-right: 100px;
 }
 
-/* Header */
-
-.header-container {
-  background-position: left;
-  background-size: contain;
-  height: calc(100vh - 72px);
-  display: flex;
-  align-items: center;
-}
-
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-left: 60px;
-}
-
-header p {
-  font-family: sans-serif;
-  font-size: 24px;
-  line-height: 42px;
-  color: #FFFFFF;
+.cartao {
+  margin-top: 70px;
   text-align: center;
-  margin-left: 30px;
+  color: #FFFFFF;
+}
+
+.card-body{
+  background-color: #464D59;
+  border: #464D59;
+}
+
+.card{
+  background-color: #575e6a;
+  margin: 0 auto; /* Added */
+  float: none; /* Added */
+  margin-bottom: 10px; /* Added */
+}
+
+.titulo {
+
+  font-family: Red Hat Text;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 48px;
+  align-items: center;
+  text-align: center;
+
+  margin-top: 70px;
+
+  color: #FFFFFF;
 }
 
 </style>
@@ -119,29 +127,29 @@ header p {
             <ul class="nav-itemstwo">
     
                 <li>
-                    <a href="login" style="color: #FFFFFF; text-decoration: none;">INICIAR SESSÃO</a>
+                    <a href="logout" style="color: #FFFFFF; text-decoration: none;">LOGOUT</a>
                 </li>
                 
             </ul>
           </nav>
         </div>
       </div>
-  
-      <div class="header-container">
-        <div class="wrapper">
-          <header>
-  
-            <div class="hero-image">
-              <img src="static/images/pessoas.png" alt="" />
-              <div class="photo-bg"></div>
-            </div>
+      
+      <div class="titulo">DOAÇÕES ABERTAS</div>
+    
+      {% for u in user %}
 
-            <div class="hero-content">
-                <p>
-                  O lugar certo para se fazer o certo! A GoodPlace é <br>uma comunidade onde os membros se ajudam a troco <br>de nada de forma totalmente gratuita. Venha fazer <br>parte!
-                </p>
-              </div>
+      <div class="cartao">
+        <div class="card" style="width: 18rem;">
+          <img style="width: 100%;" src="static/images/pessoas.png" class="card-img-bottom" alt="pessoas">
+          <div class="card-body">
+            <p style="text-align: center;" class="card-text">{{ u.name }}</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
 
-          </header>
+      {% endfor %}
+
 </body>
 </html>

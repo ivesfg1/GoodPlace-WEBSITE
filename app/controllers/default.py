@@ -36,7 +36,7 @@ def login():
             flash("Este email não está cadastrado!")
         
         else:
-            if user.password == form.password.data:
+            if user.check_password(password=form.password.data):
                 login_user(user)
                 return redirect(url_for("home"))
             else:
@@ -64,11 +64,14 @@ def cadastrar():
 
         if existing_name is None:
             if existing_email is None:
-                user = User(username=form.username.data, name=form.name.data, email=form.email.data, 
-                password=form.password.data, about='Olá! Estou cadastrado no GoodPlace!')
+                
+                user = User(username=form.username.data, name=form.name.data, email=form.email.data)
+                
+                user.set_password(password=form.password.data)
                 db.session.add(user)
                 db.session.commit()
-                return redirect(url_for("login"))
+                login_user(user)
+                return redirect(url_for("home"))
             else:
                 flash("Já existe um usuário cadastrado com este email!")
         else:
@@ -80,4 +83,5 @@ def cadastrar():
 @goodplace.route('/home')
 @login_required
 def home():
-    return render_template('home.html')
+    user = User.query.all()
+    return render_template('home.html', user=user)

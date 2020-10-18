@@ -1,4 +1,5 @@
 from app import db
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class User(db.Model):
@@ -7,7 +8,7 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True)
-    password = db.Column(db.String)
+    password = db.Column(db.String(200))
     name = db.Column(db.String)
     about = db.Column(db.Text(300), nullable=True)
     email = db.Column(db.String, unique=True)
@@ -27,13 +28,16 @@ class User(db.Model):
     def get_id(self):
         return str(self.id)
 
-    def __init__(self, username, password, name, about, email):
+    def set_password(self, password):
+        """Create hashed password."""
+        self.password = generate_password_hash(
+            password,
+            method='sha256'
+        )
 
-        self.username = username
-        self.password = password
-        self.name = name
-        self.about = about
-        self.email = email
+    def check_password(self, password):
+        """Check hashed password."""
+        return check_password_hash(self.password, password)
 
     def __repr__(self):
         return f'<User {self.username}>'
@@ -49,8 +53,3 @@ class Request(db.Model):
     requisition = db.Column(db.String)
 
     user = db.relationship("User", foreign_keys=user_id)
-
-    def __init__(self, about, requisition, user_id):
-        self.about = about
-        self.requisition = requisition
-        self.user_id = user_id
