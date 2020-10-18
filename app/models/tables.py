@@ -9,7 +9,7 @@ class User(db.Model):
     username = db.Column(db.String, unique=True)
     password = db.Column(db.String)
     name = db.Column(db.String)
-    about = db.Column(db.Text(300))
+    about = db.Column(db.Text(300), nullable=True)
     email = db.Column(db.String, unique=True)
 
     @property

@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, session
 from flask_login import login_user, logout_user
 from app import goodplace, db, lm
 
@@ -40,9 +40,11 @@ def logout():
 def cadastrar():
     form = CadastroForm()
     if form.validate_on_submit():
-        print(form.username.data)
-        print(form.email.data)
-        print(form.password.data)
+        user = User(username=form.username.data, name=form.name.data, email=form.email.data, 
+        password=form.password.data, about='Olá! Estou cadastrado no GoodPlace!')
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for("login"))
     else:
         print(form.errors)
     return render_template('cadastrar.html', form=form)

@@ -12,7 +12,7 @@ class LoginForm(FlaskForm):
 
 class CadastroForm(FlaskForm):
   
-  username = StringField('Name', validators=[DataRequired()])
+  username = StringField('UserName', validators=[DataRequired()])
+  name = StringField('Name', validators=[DataRequired()])
   email = StringField('Email', validators=[DataRequired()])
   password = PasswordField('Password', validators=[DataRequired()])
-  is_admin = BooleanField('Admin', validators=[DataRequired()])
