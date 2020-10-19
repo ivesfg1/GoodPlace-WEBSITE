@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, session
 from flask_login import login_user, logout_user, login_required, current_user
 from app import goodplace, db, lm
 
-from app.models.forms import LoginForm, CadastroForm
+from app.models.forms import LoginForm, CadastroForm, RequestForm
 from app.models.tables import User, Request
 
 
@@ -90,7 +90,21 @@ def home():
     return render_template('home.html', user=user)
 
 
-@goodplace.route('/perfil/<int:id>', methods=['GET'])
+@goodplace.route('/perfil/<int:id>', methods=['GET', 'POST'])
 def perfil(id):
+    
     user = User.query.get(id)
-    return render_template('perfil.html', user=user)
+    requests = Request.query.filter_by(user_id=id).all()
+
+    form = RequestForm()
+    if form.validate_on_submit():
+
+        request = Request(requisition=form.requisition.data, about=form.about.data, user_id=id)
+        
+        db.session.add(request)
+        db.session.commit()
+
+        flash("Pedido cadastrado com sucesso.")
+        return redirect(url_for('perfil', id=id))
+
+    return render_template('perfil.html', user=user, requests=requests, form=form)

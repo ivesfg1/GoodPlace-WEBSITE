@@ -4,8 +4,230 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GoodPlace - PERFIL</title>
+  <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+
+<style>
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  font-family: sans-serif;
+  background: #282B31;
+  height: 1440px;
+}
+
+/* Navigation */
+
+.nav-container {
+  background: #464D59;
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
+  height: 80px;
+}
+
+.wrapper {
+  max-width: 1280px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+}
+
+nav ul {
+  display: flex;
+}
+
+nav .logo {
+  font-family: sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 40px;
+  color: #FFFFFF;
+  margin-left: 60px;
+}
+
+.nav-items li {
+  font-family: sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  list-style: none;
+  margin-right: 100px;
+  margin-top: 25px;
+}
+
+
+.after-logo {
+  margin-right: 425px;
+  font-size: 20px;
+  color: #FFFFFF;
+}
+
+.nav-itemstwo li {
+  list-style: none;
+  margin-right: 100px;
+}
+
+.cartao {
+  margin-top: 70px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.card-body{
+  background-color: #464D59;
+  border: #464D59;
+}
+
+.card{
+  background-color: #575e6a;
+  margin: 0 auto; /* Added */
+  float: none; /* Added */
+  margin-bottom: 10px; /* Added */
+}
+
+.container {
+  font-family: sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 32px;
+  display: flex;
+  text-align: center;
+  color: #ffffff;
+  margin-left: auto;
+  margin-right: 500px;
+  margin-top: 30px;
+}
+
+.campos label {
+  font-family: Red Hat Text;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 32px;
+  color: #FFFFFF;
+}
+
+.campos form {
+  text-align: center;
+  margin-top: 80px;
+  margin-right: 30px;
+}
+
+</style>
+
 </head>
 <body>
+
+
+  <div class="nav-container">
+   
+    <div class="wrapper">
+
+      <nav>
+        <div class="logo">
+          <a style="color: #FFFFFF; text-decoration: none;" href="{{ url_for('home') }}">Good Place</a>
+        </div>
+
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ current_user.username }}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="{{ url_for('perfil', id=current_user.id) }}">Perfil</a>
+            <a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a>
+          </div>
+        </div>
+    
+    </nav>
+  </div>
+</div>
+
+<div class="campos">
+
+<div class="col-md-4 offset-md-4">
+
+  {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      {{ message }}
+    </div>
+  {% endfor %}
+
+  <form action="" method="POST">
+
+    {{ form.csrf_token }}
+    
+    <div class="form">
+      <label>TÍTULO</label><br><br><br>
+      {{ form.requisition(class="form-control", size=47) }}
+      
+      {% if form.errors.requisition %}
+        <ul class="list-group">
+          {% for error in form.errors.requisition %}
+            <li class="list-group-item list-group-item-danger">{{ error }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+    </div><br><br><br>
+
+    <div class="form">
+      <label>SOBRE</label><br><br><br>
+      {{ form.about(class="form-control", size=47) }}
+      {% if form.errors.about %}
+        <ul class="list-group">
+          {% for error in form.errors.about %}
+            <li class="list-group-item list-group-item-danger">{{ error }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div><br><br><br>
+    
+    <button type="submit" style='width: 200px; height: 60px; left: 540px; top: 500px; font-family: Red Hat Text; font-size: 18px; color: #ffffff; background-color: #0064AD;'>ENTRAR</button>
+
+  </form>
+</div>
+</div>
+
+
+
   <h1>PERFIL de {{ user.username }}</h1>
+  
+  {% for request in requests %}
+  
+  <div class="cartao">
+    <div class="card" style="min-width: 1220px; max-width: 1200px; min-height: 270px; max-height: 270px;">
+      <div class="row no-gutters">
+        <div class="col-md-4">
+            <div class="imagem">
+            <img src="{{ url_for('static', filename='images/hospital.png') }}" style="min-height: 270px; max-height: 270px;" class="card-img" alt="...">
+            </div>
+        </div>
+        <div class="col-md-8">
+          <div class="card-body" style="min-height: 270px;">
+            <h5 class="card-title">{{ request.requisition }}</h5>
+            <p class="card-text">{{ request.about }}</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endfor %}
+
+
+  <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 </body>
 </html>
