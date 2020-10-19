@@ -19,6 +19,9 @@ def unauthorized():
 @goodplace.route('/')
 @goodplace.route('/index')
 def index():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+
     return render_template('index.html')
 
 
@@ -85,3 +88,9 @@ def cadastrar():
 def home():
     user = User.query.all()
     return render_template('home.html', user=user)
+
+
+@goodplace.route('/perfil/<int:id>', methods=['GET'])
+def perfil(id):
+    user = User.query.get(id)
+    return render_template('perfil.html', user=user)

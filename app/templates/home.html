@@ -105,6 +105,10 @@ nav .logo {
   color: #FFFFFF;
 }
 
+/* .imagem {
+  max-width: 200px;
+} */
+
 </style>
 
 </head>
@@ -124,11 +128,19 @@ nav .logo {
             </div>
 
 
-            <ul class="nav-itemstwo">
-    
-                <li>
-                    <a href="logout" style="color: #FFFFFF; text-decoration: none;">LOGOUT</a>
-                </li>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown button
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="{{ url_for('perfil', id=current_user.id) }}">Perfil</a>
+                <a class="dropdown-item" href="logout">Logout</a>
+              </div>
+            </div>
+        
+        </nav>
+      </div>
+    </div>
                 
             </ul>
           </nav>
@@ -140,16 +152,31 @@ nav .logo {
       {% for u in user %}
 
       <div class="cartao">
-        <div class="card" style="width: 18rem;">
-          <img style="width: 100%;" src="static/images/pessoas.png" class="card-img-bottom" alt="pessoas">
-          <div class="card-body">
-            <p style="text-align: center;" class="card-text">{{ u.name }}</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div class="card" style="min-width: 1220px; max-width: 1200px; min-height: 270px; max-height: 270px;">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+                <div class="imagem">
+                <img src="static/images/hospital.png" style="min-height: 270px; max-height: 270px;" class="card-img" alt="...">
+                </div>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body" style="min-height: 270px;">
+                <h5 class="card-title">{{ u.name }}</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-iwith supporting text below as a naturn to additional content. This content is a little bit longeraaaaaaaaaaaaaThis is a wider card with supporting text below as a natural lead-iwith supporting text below as a naturn to additional content. This content is a little bit longeraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
+      
       {% endfor %}
+
+  <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 </body>
 </html>
