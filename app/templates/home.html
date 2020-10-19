@@ -120,17 +120,12 @@ nav .logo {
 
           <nav>
             <div class="logo">
-                Good Place
+              <a style="color: #FFFFFF; text-decoration: none;" href="home">Good Place</a>
             </div>
-            
-            <div class="after-logo">
-                <img src="static/images/finin.png">
-            </div>
-
 
             <div class="dropdown">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown button
+                {{ current_user.username }}
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="{{ url_for('perfil', id=current_user.id) }}">Perfil</a>
