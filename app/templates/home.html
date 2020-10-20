@@ -139,7 +139,9 @@ nav .logo {
                       
       <div class="titulo">DOAÇÕES ABERTAS</div>
     
-      {% for u in user %}
+      {% for r in request %}
+
+      {% if r.user_id != current_user.id %}
 
       <div class="cartao">
         <div class="card" style="min-width: 1220px; max-width: 1200px; min-height: 270px; max-height: 270px;">
@@ -151,16 +153,48 @@ nav .logo {
             </div>
             <div class="col-md-8">
               <div class="card-body" style="min-height: 270px;">
-                <h5 class="card-title">{{ u.name }}</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-iwith supporting text below as a naturn to additional content. This content is a little bit longeraaaaaaaaaaaaaThis is a wider card with supporting text below as a natural lead-iwith supporting text below as a naturn to additional content. This content is a little bit longeraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <h5 class="card-title">{{ r.requisition }}</h5>
+                <p class="card-text">{{ r.about }}</p>
+
+                {% for user in r.user.query.all() %}
+                
+                {% if user.id == r.user_id %}
+
+                <p class="card-text"><small class="text-muted">{{ user.username }}</small></p>
+
+                {% endif %}
+
+                {% endfor %}
+
+                <a href="{{ url_for('help', id=r.id) }}" class="btn btn-primary">Ajudar</a><br><br>
+
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Quem Ajudou
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    
+                    {% for help in helps %}
+
+                    {% if help.request.id == r.id %}
+                    
+                    <a class="dropdown-item">{{ help.user.username }}</a>
+
+                    {% endif %}
+
+                    {% endfor %}
+
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
         </div>
       </div>
       
+      {% endif %}
+
       {% endfor %}
 
   <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>

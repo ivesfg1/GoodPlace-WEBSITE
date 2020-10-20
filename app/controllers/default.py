@@ -3,7 +3,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from app import goodplace, db, lm
 
 from app.models.forms import LoginForm, CadastroForm, RequestForm
-from app.models.tables import User, Request
+from app.models.tables import User, Request, Help
 
 
 @lm.user_loader
@@ -73,8 +73,7 @@ def cadastrar():
                 user.set_password(password=form.password.data)
                 db.session.add(user)
                 db.session.commit()
-                login_user(user)
-                return redirect(url_for("home"))
+                return redirect(url_for("login"))
             else:
                 flash("Já existe um usuário cadastrado com este email!")
         else:
@@ -86,8 +85,13 @@ def cadastrar():
 @goodplace.route('/home')
 @login_required
 def home():
-    user = User.query.all()
-    return render_template('home.html', user=user)
+
+    helps = Help.query.all()
+    request = Request.query.all()
+
+    print(help)
+
+    return render_template('home.html', request=request, helps=helps)
 
 
 @goodplace.route('/perfil/<int:id>', methods=['GET', 'POST'])
@@ -95,6 +99,7 @@ def perfil(id):
     
     user = User.query.get(id)
     requests = Request.query.filter_by(user_id=id).all()
+    helps = Help.query.all()
 
     form = RequestForm()
     if form.validate_on_submit():
@@ -107,4 +112,41 @@ def perfil(id):
         flash("Pedido cadastrado com sucesso.")
         return redirect(url_for('perfil', id=id))
 
-    return render_template('perfil.html', user=user, requests=requests, form=form)
+    return render_template('perfil.html', user=user, requests=requests, form=form, id=id, helps=helps)
+
+
+@goodplace.route('/request/<int:id>', methods=['GET', 'POST'])
+def request(id):
+
+    requests = Request.query.filter_by(user_id=current_user.id).all()
+    request = Request.query.get(id)
+    
+    form = RequestForm()
+
+    # form.about.data = request.about
+    # form.requisition.data = request.requisition
+
+    if form.validate_on_submit():
+        
+        request.about = form.about.data
+        request.requisition = form.requisition.data
+
+        db.session.commit()
+
+        flash("Pedido atualizado com sucesso.")
+        return redirect(url_for('perfil', id=request.user_id))
+
+    return render_template('request.html', request=request, requests=requests, form=form, id=id)
+
+
+@goodplace.route('/request/<int:id>/help', methods=['GET', 'POST'])
+def help(id):
+
+    request = Request.query.get(id)
+
+    help = Help(user_id=current_user.id, request_id=request.id)
+    db.session.add(help)
+    db.session.commit()
+
+    return redirect(url_for('home'))
+    return render_template('home.html', id=request.id, request=request)

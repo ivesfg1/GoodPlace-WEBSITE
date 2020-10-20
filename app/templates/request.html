@@ -160,7 +160,7 @@ nav .logo {
   {% endfor %}
 
 
-{% if id == current_user.id %}
+{% if request in requests %}
 
     <form action="" method="POST">
 
@@ -192,69 +192,18 @@ nav .logo {
         {% endif %}
       </div><br><br><br>
       
-      <button type="submit" style='width: 200px; height: 60px; left: 540px; top: 500px; font-family: Red Hat Text; font-size: 18px; color: #ffffff; background-color: #0064AD;'>CRIAR PEDIDO</button>
+      <button type="submit" style='width: 200px; height: 60px; left: 540px; top: 500px; font-family: Red Hat Text; font-size: 18px; color: #ffffff; background-color: #0064AD;'>ATUALIZAR PEDIDO</button>
 
     </form>
+
+{% else %}
+
+
 
 {% endif %}
 
 </div>
 </div>
-
-  
-  {% for request in requests %}
-    
-      <div class="cartao">
-        <div class="card" style="min-width: 1220px; max-width: 1200px; min-height: 270px; max-height: 270px;">
-          <div class="row no-gutters">
-            <div class="col-md-4">
-                <div class="imagem">
-                <img src="{{ url_for('static', filename='images/hospital.png') }}" style="min-height: 270px; max-height: 270px;" class="card-img" alt="...">
-                </div>
-            </div>
-            <div class="col-md-8">
-              <div class="card-body" style="min-height: 270px;">
-                <h5 class="card-title">{{ request.requisition }}</h5>
-                <p class="card-text">{{ request.about }}</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                
-                {% if request.user_id == current_user.id %}
-
-                <a href="{{ url_for('request', id=request.id) }}" class="btn btn-primary">Atualizar</a><br><br>
-
-                {% else %}
-
-                <a href="#" class="btn btn-primary">Ajudar</a><br><br>
-
-                {% endif %}
-
-                <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Quem Ajudou
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    
-                    {% for help in helps %}
-
-                    {% if help.request.id == request.id %}
-                    
-                    <a class="dropdown-item">{{ help.user.username }}</a>
-
-                    {% endif %}
-
-                    {% endfor %}
-
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-  {% endfor %}
-
 
   <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
