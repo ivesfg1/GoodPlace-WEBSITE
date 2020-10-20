@@ -135,6 +135,7 @@ nav .logo {
         </div>
 
         <div class="dropdown">
+          <img style="max-height: 50px; min-height: 50px; border-radius: 50%; " src="{{ url_for('static', filename=current_user.photo) }}">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{ current_user.username }}
           </button>
@@ -165,7 +166,7 @@ nav .logo {
     <form action="" method="POST">
 
       {{ form.csrf_token }}
-      
+
       <div class="form">
         <label>TÍTULO</label><br><br><br>
         {{ form.requisition(class="form-control", size=47) }}
@@ -200,7 +201,6 @@ nav .logo {
 
 </div>
 </div>
-
   
   {% for request in requests %}
     
@@ -209,14 +209,25 @@ nav .logo {
           <div class="row no-gutters">
             <div class="col-md-4">
                 <div class="imagem">
-                <img src="{{ url_for('static', filename='images/hospital.png') }}" style="min-height: 270px; max-height: 270px;" class="card-img" alt="...">
+                <img src="{{ url_for('static', filename=request.user.photo) }}" style="min-height: 270px; max-height: 270px;" class="card-img" alt="...">
                 </div>
             </div>
             <div class="col-md-8">
               <div class="card-body" style="min-height: 270px;">
                 <h5 class="card-title">{{ request.requisition }}</h5>
                 <p class="card-text">{{ request.about }}</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                
+
+                {% for user in request.user.query.all() %}
+                
+                {% if user.id == request.user_id %}
+
+                <a style='text-decoration: none; color: #FFFFFF; 'href="{{ url_for('perfil', id=request.user.id) }}" class="card-text">{{ user.username }}</a><br><br>
+
+                {% endif %}
+
+                {% endfor %}
+
                 
                 {% if request.user_id == current_user.id %}
 
@@ -224,7 +235,7 @@ nav .logo {
 
                 {% else %}
 
-                <a href="#" class="btn btn-primary">Ajudar</a><br><br>
+                <a href="{{ url_for('help', id=request.id) }}" class="btn btn-primary">Ajudar</a><br><br>
 
                 {% endif %}
 

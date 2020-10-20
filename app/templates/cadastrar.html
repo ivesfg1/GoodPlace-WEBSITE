@@ -71,10 +71,25 @@ body {
           </div>
         {% endfor %}
 
-        <form action="" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data">
     
           {{ form.csrf_token }}
           
+
+          <div class="form">
+            <label>FOTO DE PERFIL</label><br><br><br>
+            {{ form.photo(class="input") }}
+            
+            {% if form.errors.username %}
+              <ul class="list-group">
+                {% for error in form.errors.photo %}
+                  <li class="list-group-item list-group-item-danger">{{ error }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+
+          </div><br><br><br>
+
           <div class="form">
             <label>NOME DE USUÁRIO</label><br><br><br>
             {{ form.username(class="form-control", size=47) }}

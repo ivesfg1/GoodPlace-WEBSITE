@@ -1,5 +1,10 @@
+import os, base64
+
 from flask import render_template, flash, redirect, url_for, session
 from flask_login import login_user, logout_user, login_required, current_user
+
+from werkzeug.utils import secure_filename
+
 from app import goodplace, db, lm
 
 from app.models.forms import LoginForm, CadastroForm, RequestForm
@@ -67,8 +72,13 @@ def cadastrar():
 
         if existing_name is None:
             if existing_email is None:
+
+                photo = form.photo.data
+                filename = secure_filename(photo.filename)
+                path = os.path.join(goodplace.config['UPLOAD_FOLDER'], filename)
+                photo.save(path)
                 
-                user = User(username=form.username.data, name=form.name.data, email=form.email.data)
+                user = User(username=form.username.data, name=form.name.data, email=form.email.data, photo=filename)
                 
                 user.set_password(password=form.password.data)
                 db.session.add(user)
@@ -88,8 +98,6 @@ def home():
 
     helps = Help.query.all()
     request = Request.query.all()
-
-    print(help)
 
     return render_template('home.html', request=request, helps=helps)
 
